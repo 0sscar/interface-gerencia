@@ -78,6 +78,9 @@ frame4.place(x=410,y=504)
 frame5 = Frame(janela,width=300, height=190,bg="#FF7900") 
 frame5.place(x=80,y=240)
 
+
+
+
 def criar_placeholder(entry, texto_placeholder, cor_placeholder="gray"):
     # Adiciona o texto inicial
     entry.insert(0, texto_placeholder)
@@ -253,27 +256,29 @@ for _ in range(50):  # 50 registros de teste
 
 
 #tabela de verificação
+def check_week(frame5):
+    check_vars = [[IntVar() for _ in range(6)] for _ in range(3)]
 
-check_vars = [[IntVar() for _ in range(6)] for _ in range(3)]
+    #cabeçalhos
+    Label(frame5, text="Disponibilidade", font=('Arial', 14)).grid(row=0, column=0, columnspan=7)
+    dias = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab']
+    for i, dia in enumerate(dias, 1):
+        Label(frame5, text=dia).grid(row=1, column=i)
 
-#cabeçalhos
-Label(frame5, text="Disponibilidade", font=('Arial', 14)).grid(row=0, column=0, columnspan=7)
-dias = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab']
-for i, dia in enumerate(dias, 1):
-    Label(frame5, text=dia).grid(row=1, column=i)
+    #checkbuttons
+    periodos = ['Manhã', 'Tarde', 'Noite']
+    for row, periodo in enumerate(periodos, 2):
+        Label(frame5, text=periodo).grid(row=row, column=0)
+        for col in range(1, 7):
+            Checkbutton(frame5, variable=check_vars[row-2][col-1],
+                    onvalue=1, offvalue=0).grid(row=row, column=col)
 
-#checkbuttons
-periodos = ['Manhã', 'Tarde', 'Noite']
-for row, periodo in enumerate(periodos, 2):
-    Label(frame5, text=periodo).grid(row=row, column=0)
-    for col in range(1, 7):
-        Checkbutton(frame5, variable=check_vars[row-2][col-1],
-                   onvalue=1, offvalue=0).grid(row=row, column=col)
-
-
-
+    
+    return check_vars
 
 
+
+check_vars = check_week(frame5) 
 
 
 
