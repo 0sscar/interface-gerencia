@@ -1,9 +1,12 @@
 from tkinter import* 
 from tkinter import ttk 
 from random import choice
+from cad_window import novoprofessor
+from components import placeholder, radiobutton_genre, combobox_materias 
 
 janela = Tk()  
 janela.geometry("1043x593")
+janela.title("Sistema de Professores Substitutos")
 janela.configure(bg="#0C0C0C")
 janela.resizable(width=FALSE, height=FALSE)#janela fixa
 janela.grid_rowconfigure(0, weight=1)
@@ -80,8 +83,8 @@ frame5.place(x=80,y=240)
 
 
 
-
-def criar_placeholder(entry, texto_placeholder, cor_placeholder="gray"):
+'''
+def placeholder(entry, texto_placeholder, cor_placeholder="gray"):
     # Adiciona o texto inicial
     entry.insert(0, texto_placeholder)
     entry.config(fg=cor_placeholder)
@@ -101,7 +104,7 @@ def criar_placeholder(entry, texto_placeholder, cor_placeholder="gray"):
     # Vincula os eventos
     entry.bind("<FocusIn>", on_entry_click)
     entry.bind("<FocusOut>", on_focus_out)
-
+'''
 label_registro = Label(frame3, text="Registros", anchor=CENTER,fg="#0C0C0C",  bg="#FFFFFF",width=38,font=('Arial',"20","bold")) 
 label_registro.place(x=0,y=0)
 
@@ -110,7 +113,7 @@ label_nome.place(x=50, y=20)
 
 entry_nome = Entry(frame1, width=30, justify="left", relief="solid", font=('Helvetica', 12))
 entry_nome.place(x=50, y=50)
-criar_placeholder(entry_nome, "Nome do(a) Professor(a)", cor_placeholder="#A9A9A9") 
+placeholder(entry_nome, "Nome do(a) Professor(a)", cor_placeholder="#A9A9A9") 
 
 Label_click = Label(frame3, text="Clique em um registro para mais informações e opções", font=('Helvetica', 10)) 
 Label_click.place(x=150, y= 52)
@@ -124,54 +127,29 @@ label_email.place(x=50, y=90)
 
 entry_email = Entry(frame1, width=45, justify="left", relief="solid",text="Nome do professor") 
 entry_email.place(x=50, y=120)
-criar_placeholder(entry_email, 'Insira o email',cor_placeholder="#A9A9A9")
+placeholder(entry_email, 'Insira o email',cor_placeholder="#A9A9A9")
 '''
 
 
 # RadioButtons
-# organiza isso 
-gv = StringVar()
-gv.set("")  # Valor padrão
+radiobutton_genre(container=frame1, x_label=50, y_label=90, x_inicial_rb=120, y_rb=90)
 
 
 label_gender = Label(frame1, text="Sexo: ", anchor=NW, fg="#0C0C0C", bg="#FFFFFF", font=('Helvetica', 13, "bold"))
 label_gender.place(x=50, y=90)
 
-genders = ["masculino", "Feminino"]
-rb_positions = [(120, 90), (220, 90)]  #(x,y) para cada radioButton
-
-for i, (text, pos) in enumerate(zip(genders, rb_positions)):
-    rb = Radiobutton(
-        frame1,
-        text=text,
-        variable=gv,
-        value=text,
-        bg="#FFFFFF",
-        font=('Helvetica', 12)
-    )
-    rb.place(x=pos[0], y=pos[1])
 
 
 
 
 
 # Combobox//optionmenu
-materias = ["História", "Português", "Geografia", "Matemática"]
-mv = StringVar()
-mv.set("Disciplina")
+select_opt, mv = combobox_materias(container=frame1,x=50,y=160)
+
 
 label_menu = Label(frame1, text="Selecione sua matéria", anchor=NW, fg="#0C0C0C", bg="#FFFFFF", font=('Helvetica', 14))
 label_menu.place(x=50, y=127)
 
-select_opt = ttk.Combobox(
-    frame1,
-    textvariable=mv,
-    values=materias,
-    state="readonly",
-    font=('Helvetica', 14),
-    style='TCombobox'
-)
-select_opt.place(x=50, y=160, width=273, height=35)
 
 
 
@@ -181,8 +159,8 @@ botao_inserir = Button(frame4,width=15, height=1, text="Gerar Relatório",anchor
 botao_inserir.place(x=110, y=40) 
 
 
-botao_apagar = Button(frame4,width=29, height=1, text="Cadastrar Novo Professor Substituto",anchor=CENTER,fg="#FFFFFF", bg="#FF3131",font=("Ivy 10 bold"), relief= "raised", overrelief="ridge" )
-botao_apagar.place(x=290, y=40) 
+botao_cadastro = Button(frame4,width=29, height=1, text="Cadastrar Novo Professor Substituto",anchor=CENTER,fg="#FFFFFF", bg="#FF3131",font=("Ivy 10 bold"), relief= "raised", overrelief="ridge", command=novoprofessor )
+botao_cadastro.place(x=290, y=40) 
 
 
 botao_atualizar = Button(frame1,width=13, height=2, text="Aplicar Filtro",anchor=CENTER,fg="#FFFFFF", bg="#5372FF",font=("Ivy 10 bold"), relief= "raised", overrelief="ridge" )
@@ -255,8 +233,9 @@ for _ in range(50):  # 50 registros de teste
 
 
 
-#tabela de verificação
-def check_week(frame5):
+
+#tabela de verificaçãodef check_week(frame5):
+
     check_vars = [[IntVar() for _ in range(6)] for _ in range(3)]
 
     #cabeçalhos
@@ -273,12 +252,10 @@ def check_week(frame5):
             Checkbutton(frame5, variable=check_vars[row-2][col-1],
                     onvalue=1, offvalue=0).grid(row=row, column=col)
 
+
     
-    return check_vars
+    
 
-
-
-check_vars = check_week(frame5) 
 
 
 
