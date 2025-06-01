@@ -2,7 +2,7 @@ from tkinter import*
 from tkinter import ttk 
 from random import choice
 from cad_window import novoprofessor
-from components import placeholder, radiobutton_genre, combobox_materias 
+from components import placeholder, radiobutton_genre, combobox_materias,check_week 
 
 janela = Tk()  
 janela.geometry("1043x593")
@@ -78,8 +78,8 @@ frame3.place(x=410,y=0)
 frame4 = Frame(janela,width= 700, height=89, bg="#22E222")
 frame4.place(x=410,y=504) 
 
-frame5 = Frame(janela,width=300, height=190,bg="#FF7900") 
-frame5.place(x=80,y=240)
+frame5 = Frame(janela,width=210, height=130,bg="#E7E5DF") 
+frame5.place(x=85,y=240)
 
 
 
@@ -144,7 +144,7 @@ label_gender.place(x=50, y=90)
 
 
 # Combobox//optionmenu
-select_opt, mv = combobox_materias(container=frame1,x=50,y=160)
+select_opt, mv =combobox_materias(container=frame1,x=50,y=160)
 
 
 label_menu = Label(frame1, text="Selecione sua matéria", anchor=NW, fg="#0C0C0C", bg="#FFFFFF", font=('Helvetica', 14))
@@ -164,7 +164,7 @@ botao_cadastro.place(x=290, y=40)
 
 
 botao_atualizar = Button(frame1,width=13, height=2, text="Aplicar Filtro",anchor=CENTER,fg="#FFFFFF", bg="#5372FF",font=("Ivy 10 bold"), relief= "raised", overrelief="ridge" )
-botao_atualizar.place(x=130, y=400)
+botao_atualizar.place(x=130, y=440)
 
 
 
@@ -196,6 +196,8 @@ vscroll = ttk.Scrollbar(frame2, orient="vertical", command=tabela.yview)
 #hscroll = ttk.Scrollbar(frame2, orient="horizontal", command=tabela.xview) 
 tabela.configure(yscrollcommand=vscroll.set) #xscrollcommand=hscroll.set)
 
+
+
 #posicionando elementos  
 tabela.grid(column=0,row=0,sticky="nsew") 
 vscroll.grid(column=1,row=0,sticky="ns") 
@@ -207,6 +209,7 @@ frame2.grid_columnconfigure(0, weight=1)
 header = ["nw","nw", "nw","nw"]    
 header_size=[54,200,170] 
 n=0
+
 
 
 
@@ -236,21 +239,8 @@ for _ in range(50):  # 50 registros de teste
 
 #tabela de verificaçãodef check_week(frame5):
 
-    check_vars = [[IntVar() for _ in range(6)] for _ in range(3)]
-
-    #cabeçalhos
-    Label(frame5, text="Disponibilidade", font=('Arial', 14)).grid(row=0, column=0, columnspan=7)
-    dias = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab']
-    for i, dia in enumerate(dias, 1):
-        Label(frame5, text=dia).grid(row=1, column=i)
-
-    #checkbuttons
-    periodos = ['Manhã', 'Tarde', 'Noite']
-    for row, periodo in enumerate(periodos, 2):
-        Label(frame5, text=periodo).grid(row=row, column=0)
-        for col in range(1, 7):
-            Checkbutton(frame5, variable=check_vars[row-2][col-1],
-                    onvalue=1, offvalue=0).grid(row=row, column=col)
+# Substitua o código atual da tabela por:
+check_week(frame5)
 
 
     
