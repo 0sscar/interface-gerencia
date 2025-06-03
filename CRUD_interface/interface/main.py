@@ -2,7 +2,9 @@ from tkinter import*
 from tkinter import ttk 
 from random import choice
 from cad_window import novoprofessor
+from registr_window import exibir_registro  
 from components import placeholder, radiobutton_genre, combobox_materias,check_week 
+
 
 janela = Tk()  
 janela.geometry("1043x593")
@@ -40,7 +42,7 @@ style.configure("Custom.Treeview.Heading",
 # Estilo quando uma linha está selecionada
 style.map("Custom.Treeview",
     background=[('selected', '#E6F2FF')],  # Azul claro quando selecionado
-    foreground=[('selected', '#000000')]  # Texto preto quando selecionado
+    foreground=[('selected', '#000000')]  
 )
 
 # Estilo do Combobox
@@ -209,6 +211,8 @@ frame2.grid_columnconfigure(0, weight=1)
 header = ["nw","nw", "nw","nw"]    
 header_size=[54,200,170] 
 n=0
+##############################################
+
 
 
 
@@ -236,9 +240,17 @@ for _ in range(50):  # 50 registros de teste
 
 
 
+def select_tree(event):
+    """Abre a janela de registro com os dados do professor selecionado"""
+    item_selecionado = tabela.focus()
+    
+    if item_selecionado:
+        dados_professor = tabela.item(item_selecionado, 'values')
+        exibir_registro(dados_professor)  # Chama a função passando os dados
 
-#tabela de verificaçãodef check_week(frame5):
-
+# Vinculando o evento
+tabela.bind("<Double-1>", select_tree)
+tabela.configure(selectmode="browse")  # Para seleção de uma linha por vez
 # Substitua o código atual da tabela por:
 check_week(frame5)
 

@@ -23,33 +23,12 @@ def placeholder(entry, texto_placeholder, cor_placeholder="gray"):
     entry.bind("<FocusIn>", on_entry_click)
     entry.bind("<FocusOut>", on_focus_out)
 
-def radiobutton_genre(container, x_label, y_label, x_inicial_rb, y_rb):
-    """
-    Cria um grupo de RadioButtons para seleção de gênero
+def radiobutton_genre(container, x_label, y_label, x_inicial_rb, y_rb, var=None):
+    """Cria RadioButtons para seleção de gênero"""
+    gv = var if var else StringVar()
     
-    Args:
-        container: O frame ou janela onde será colocado
-        x_label, y_label: Posição do label "Sexo"
-        x_inicial_rb: Posição X inicial dos RadioButtons
-        y_rb: Posição Y dos RadioButtons
-        
-    Returns:
-        StringVar: Variável que armazena a seleção
-    """
-    gv = StringVar()
-    gv.set("")
+    Label(container, text="Sexo: ", anchor=NW, font=('Helvetica', 13, "bold")).place(x=x_label, y=y_label)
     
-    # Label "Sexo"
-    Label(
-        container,
-        text="Sexo: ",
-        anchor=NW,
-        fg="#0C0C0C",
-        bg="#FFFFFF",
-        font=('Helvetica', 13, "bold")
-    ).place(x=x_label, y=y_label)
-    
-    # Opções e RadioButtons
     genders = ["masculino", "Feminino"]
     for i, text in enumerate(genders):
         Radiobutton(
@@ -57,25 +36,13 @@ def radiobutton_genre(container, x_label, y_label, x_inicial_rb, y_rb):
             text=text,
             variable=gv,
             value=text,
-            bg="#FFFFFF"
-            
+            font=('Helvetica', 12)
         ).place(x=x_inicial_rb + (i * 100), y=y_rb)
     
     return gv
 
 def combobox_materias(container, x, y, width=273, height=35):
-    """
-    Cria um Combobox para seleção de matérias
-    
-    Args:
-        container: O frame ou janela onde será colocado
-        x, y: Posição do componente
-        width: Largura do Combobox
-        height: Altura do Combobox
-        
-    Returns:
-        tuple: (Combobox, StringVar) para controle
-    """
+   
     # Label acima do Combobox
     style = ttk.Style()
     

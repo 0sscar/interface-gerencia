@@ -22,7 +22,7 @@ def novoprofessor():
 
     radiobutton_genre(container=janela_cad, x_label=50, y_label=90, x_inicial_rb=120, y_rb=90)
   
-    botao_voltar = Button(janela_cad, text="voltar",width=10,command=janela_cad.destroy)
+    botao_voltar = Button(janela_cad, text="Voltar",font=('Helvetica',10),width=10,command=janela_cad.destroy)
     botao_voltar.place(x=80, y=410) 
     botao_cadastrar= Button(janela_cad, text="Cadastrar", fg="green", font=('Helvetica',10),width=10)
     botao_cadastrar.place(x=205, y=410) 
