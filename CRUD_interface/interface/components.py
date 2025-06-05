@@ -23,12 +23,20 @@ def placeholder(entry, texto_placeholder, cor_placeholder="gray"):
     entry.bind("<FocusIn>", on_entry_click)
     entry.bind("<FocusOut>", on_focus_out)
 
-def radiobutton_genre(container, x_label, y_label, x_inicial_rb, y_rb, var=None):
-    """Cria RadioButtons para seleção de gênero"""
+def radiobutton_genre(container, x_label, y_label, x_inicial_rb, y_rb, var=None, bg_color=None):
+
+    bg_color = bg_color if bg_color else container.cget('bg')
+    
     gv = var if var else StringVar()
     
-    Label(container, text="Sexo: ", anchor=NW, font=('Helvetica', 13, "bold")).place(x=x_label, y=y_label)
+    # Label "Sexo" com a cor de fundo
+    Label(container, 
+          text="Sexo: ", 
+          anchor=NW, 
+          font=('Helvetica', 13, "bold"),
+          bg=bg_color).place(x=x_label, y=y_label)
     
+    # Opções e RadioButtons
     genders = ["masculino", "Feminino"]
     for i, text in enumerate(genders):
         Radiobutton(
@@ -36,7 +44,9 @@ def radiobutton_genre(container, x_label, y_label, x_inicial_rb, y_rb, var=None)
             text=text,
             variable=gv,
             value=text,
-            font=('Helvetica', 12)
+            font=('Helvetica', 12),
+            bg=bg_color,  # Cor de fundo herdada
+            activebackground=bg_color  # Cor quando ativo
         ).place(x=x_inicial_rb + (i * 100), y=y_rb)
     
     return gv

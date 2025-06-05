@@ -1,0 +1,8 @@
+azul = "#074E69"
+verde = "#5A837C"
+cb3 = "#6C7A9C"
+branco = "#EDEAE3"
+vermelho = "#B8576D" 
+verde_claro="#58BFA1"
+cor_tabela="#DDDDDD" 
+cor_botao="#dddddd"

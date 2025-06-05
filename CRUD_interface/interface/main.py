@@ -4,12 +4,14 @@ from random import choice
 from cad_window import novoprofessor
 from registr_window import exibir_registro  
 from components import placeholder, radiobutton_genre, combobox_materias,check_week 
+from cores import azul, verde,branco,verde_claro,cor_tabela,cor_botao
+
 
 
 janela = Tk()  
 janela.geometry("1043x593")
 janela.title("Sistema de Professores Substitutos")
-janela.configure(bg="#0C0C0C")
+janela.configure(bg=verde)
 janela.resizable(width=FALSE, height=FALSE)#janela fixa
 janela.grid_rowconfigure(0, weight=1)
 janela.grid_columnconfigure(1, weight=1)
@@ -67,20 +69,20 @@ style.map('TCombobox',
 
 
 #divisão de elementos 
-frame1 = Frame(janela, width = 410, height=600, bg="#FFFFFF")
+frame1 = Frame(janela, width = 410, height=600, bg="#EDEAE3")
 frame1.grid(row=0, column=0) 
 
-frame2 = Frame(janela,width=640, height=600,bg="#C5C5C5", relief="flat")
+frame2 = Frame(janela,width=640, height=600, relief="flat")
 frame2.grid(row=0, column=1)
 
-frame3 = Frame(janela,width= 700, height=89, bg="#AF0306")
+frame3 = Frame(janela,width= 700, height=89, bg=verde)
 frame3.place(x=410,y=0)
 
 
-frame4 = Frame(janela,width= 700, height=89, bg="#22E222")
+frame4 = Frame(janela,width= 700, height=89, bg=verde)
 frame4.place(x=410,y=504) 
 
-frame5 = Frame(janela,width=210, height=130,bg="#E7E5DF") 
+frame5 = Frame(janela,width=210, height=130,bg=cor_tabela) 
 frame5.place(x=85,y=240)
 
 
@@ -107,17 +109,17 @@ def placeholder(entry, texto_placeholder, cor_placeholder="gray"):
     entry.bind("<FocusIn>", on_entry_click)
     entry.bind("<FocusOut>", on_focus_out)
 '''
-label_registro = Label(frame3, text="Registros", anchor=CENTER,fg="#0C0C0C",  bg="#FFFFFF",width=38,font=('Arial',"20","bold")) 
+label_registro = Label(frame3, text="Registros", anchor=CENTER,fg="#0C0C0C",  bg=azul,width=38,font=('Arial',"20","bold")) 
 label_registro.place(x=0,y=0)
 
-label_nome = Label( frame1, text="Insira o nome do professor", anchor=NW,fg="#0C0C0C", bg="#FFFFFF", font=('Helvetica', 13,"bold")) 
-label_nome.place(x=50, y=20) 
+label_nome = Label( frame1, text="Insira o nome do professor que deseja buscar", anchor=NW,fg="#0C0C0C", bg=branco, font=('Helvetica', 12,"bold")) 
+label_nome.place(x=47, y=22) 
 
 entry_nome = Entry(frame1, width=30, justify="left", relief="solid", font=('Helvetica', 12))
 entry_nome.place(x=50, y=50)
 placeholder(entry_nome, "Nome do(a) Professor(a)", cor_placeholder="#A9A9A9") 
 
-Label_click = Label(frame3, text="Clique em um registro para mais informações e opções", font=('Helvetica', 10)) 
+Label_click = Label(frame3, text="Clique em um registro para mais informações e opções", font=('Helvetica', 10,'bold'),bg=verde) 
 Label_click.place(x=150, y= 52)
 
 
@@ -137,7 +139,7 @@ placeholder(entry_email, 'Insira o email',cor_placeholder="#A9A9A9")
 radiobutton_genre(container=frame1, x_label=50, y_label=90, x_inicial_rb=120, y_rb=90)
 
 
-label_gender = Label(frame1, text="Sexo: ", anchor=NW, fg="#0C0C0C", bg="#FFFFFF", font=('Helvetica', 13, "bold"))
+label_gender = Label(frame1, text="Sexo: ", anchor=NW, fg="#0C0C0C", bg=branco, font=('Helvetica', 13, "bold"))
 label_gender.place(x=50, y=90)
 
 
@@ -149,24 +151,24 @@ label_gender.place(x=50, y=90)
 select_opt, mv =combobox_materias(container=frame1,x=50,y=160)
 
 
-label_menu = Label(frame1, text="Selecione sua matéria", anchor=NW, fg="#0C0C0C", bg="#FFFFFF", font=('Helvetica', 14))
-label_menu.place(x=50, y=127)
+label_menu = Label(frame1, text="Selecione sua matéria", anchor=NW, fg="#0C0C0C", bg=branco, font=('Helvetica', 14,"bold"))
+label_menu.place(x=50, y=129)
 
 
 
 
 #botoes
 #editar depois 
-botao_inserir = Button(frame4,width=15, height=1, text="Gerar Relatório",anchor=CENTER,fg="#FFFFFF", bg="#00BF62",font=("Ivy 10 bold"), relief= "raised", overrelief="ridge" )
-botao_inserir.place(x=110, y=40) 
+botao_relatorio = Button(frame4,width=15, height=1, text="Gerar Relatório",anchor=CENTER,fg="black", bg=cor_botao,font=("Ivy 10 bold"), relief= "raised", overrelief="ridge" )
+botao_relatorio.place(x=110, y=40) 
 
 
-botao_cadastro = Button(frame4,width=29, height=1, text="Cadastrar Novo Professor Substituto",anchor=CENTER,fg="#FFFFFF", bg="#FF3131",font=("Ivy 10 bold"), relief= "raised", overrelief="ridge", command=novoprofessor )
+botao_cadastro = Button(frame4,width=29, height=1, text="Cadastrar Novo Professor Substituto",anchor=CENTER,fg="#FFFFFF", bg=verde_claro,font=("Ivy 10 bold"), relief= "raised", overrelief="ridge", command=novoprofessor )
 botao_cadastro.place(x=290, y=40) 
 
 
-botao_atualizar = Button(frame1,width=13, height=2, text="Aplicar Filtro",anchor=CENTER,fg="#FFFFFF", bg="#5372FF",font=("Ivy 10 bold"), relief= "raised", overrelief="ridge" )
-botao_atualizar.place(x=130, y=440)
+botao_filtro = Button(frame1,width=13, height=2, text="Aplicar Filtro",anchor=CENTER,fg="#FFFFFF", bg="#54A9BE",font=("Ivy 10 bold"), relief= "raised", overrelief="ridge" )
+botao_filtro.place(x=130, y=440)
 
 
 
