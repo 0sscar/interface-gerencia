@@ -1,6 +1,6 @@
 from tkinter import* 
 from tkinter import ttk   
-
+from disponibilidade import definir_check_vars, calcular_disponibilidade
 
 def placeholder(entry, texto_placeholder, cor_placeholder="gray"):
     # Adiciona o texto inicial
@@ -27,7 +27,9 @@ def radiobutton_genre(container, x_label, y_label, x_inicial_rb, y_rb, var=None,
 
     bg_color = bg_color if bg_color else container.cget('bg')
     
+    genders = ["Masculino", "Feminino"]
     gv = var if var else StringVar()
+    gv.set(genders[0])
     
     # Label "Sexo" com a cor de fundo
     Label(container, 
@@ -36,8 +38,7 @@ def radiobutton_genre(container, x_label, y_label, x_inicial_rb, y_rb, var=None,
           font=('Helvetica', 13, "bold"),
           bg=bg_color).place(x=x_label, y=y_label)
     
-    # Opções e RadioButtons
-    genders = ["masculino", "Feminino"]
+    # RadioButtons
     for i, text in enumerate(genders):
         Radiobutton(
             container,
@@ -50,6 +51,37 @@ def radiobutton_genre(container, x_label, y_label, x_inicial_rb, y_rb, var=None,
         ).place(x=x_inicial_rb + (i * 100), y=y_rb)
     
     return gv
+def checkbutton_genre(container, x_label, y_label, x_inicial_rb, y_rb, var=None, bg_color=None):
+
+    bg_color = bg_color if bg_color else container.cget('bg')
+    
+    genders = ["Masculino", "Feminino"]
+    gvs = [BooleanVar(), BooleanVar()]
+    
+  
+    Label(container, 
+          text="Sexo: ", 
+          anchor=NW, 
+          font=('Helvetica', 13, "bold"),
+          bg=bg_color).place(x=x_label, y=y_label)
+    
+    for i, text in enumerate(genders):
+        Checkbutton(
+            container,
+            variable=gvs[i],
+            bg=bg_color,  
+            activebackground=bg_color, 
+            selectcolor="white"  
+        ).place(x=x_inicial_rb + (i * 100), y=y_rb)
+        
+        Label(
+            container,
+            text=text,
+            bg=bg_color,  
+            font=('Helvetica', 12)
+        ).place(x=x_inicial_rb + (i * 100) + 25, y=y_rb)  
+    
+    return gvs
 
 def combobox_materias(container, x, y, width=273, height=35):
    
@@ -80,7 +112,7 @@ def combobox_materias(container, x, y, width=273, height=35):
     return combobox, mv 
 
 
-def check_week(container, x=0, y=0, bg_color=None):
+def check_week(container, x=0, y=0, bg_color=None, disponibilidade=0, disabled=False):
     """Cria tabela de disponibilidade semanal"""
     # Cria um frame para conter a tabela 
     # Se não for especificada, pega a cor do container
@@ -89,7 +121,18 @@ def check_week(container, x=0, y=0, bg_color=None):
     frame = Frame(container, bg=bg_color)
     frame.place(x=x, y=y)
     
-    check_vars = [[IntVar() for _ in range(6)] for _ in range(3)]
+    check_vars = [[BooleanVar() for _ in range(6)] for _ in range(3)]
+    definir_check_vars(check_vars, disponibilidade)
+
+    
+    output = "\n"
+    for turno in check_vars:
+        for dia in turno:
+            output += str(dia.get()) + " "
+        output += "\n"
+    
+    print(f"criando check_week. Comparação: disponibilidade={disponibilidade}, calculado={calcular_disponibilidade(check_vars)}, output={output}")
+    
     
     # Cabeçalhos
     Label(frame,width=19, text="Disponibilidade",bg="#CCCCCC", font=('Arial', 14)).grid(row=0, column=0, columnspan=7)
@@ -102,11 +145,12 @@ def check_week(container, x=0, y=0, bg_color=None):
     for row, periodo in enumerate(periodos, 2):
         Label(frame, bg=container.cget('bg'),text=periodo).grid(row=row, column=0)
         for col in range(1, 7):
-            Checkbutton(frame, 
+            check = Checkbutton(frame, 
                       variable=check_vars[row-2][col-1],
-                      onvalue=1, 
-                      bg=container.cget('bg'),
-                      offvalue=0).grid(row=row, column=col)
+                      bg=container.cget('bg'))
+            check.grid(row=row, column=col)
+            if disabled:
+                check.config(state=DISABLED)
                       
     return check_vars, frame  # Retorna tanto as variáveis quanto o frame
 
